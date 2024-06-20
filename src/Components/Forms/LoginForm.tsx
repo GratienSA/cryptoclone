@@ -1,15 +1,17 @@
 'use client'
+
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { login } from '@/Service/auth'
 import React, { useState } from 'react'
-
+import Link from "next/link";
+import Navbar from '../Homepage/Navbar'
 
 // Interface FormData
 
 interface FormData {
   email: string
-  hash: string
+  password: string
 }
 
 // Composant LoginForm
@@ -71,12 +73,12 @@ export const LoginForm = () => {
             <div className="mt-2">
               <input
                 id="hash"
-                {...register('hash', { required: 'Password is required' })}
+                {...register('password', { required: 'Password is required' })}
                 type="password"
                 autoComplete="current-password"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 indent-3"
               />
-              {errors.hash && <p className="text-red-600">{errors.hash.message}</p>}
+              {errors.password && <p className="text-red-600">{errors.password.message}</p>}
             </div>
           </div>
 
@@ -88,6 +90,11 @@ export const LoginForm = () => {
             Sign in
           </button>
         </form>
+        <Link href="/register">
+          <button className="text-orange-500 hover:text-blue-600  py-2">
+            Register
+          </button>
+        </Link>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { AuthProps, RegisterProps } from '@/Utils/types'
 
-export async function register(registerProps: RegisterProps) {
+export async function registerToApi(registerProps: RegisterProps) {
   const url = `${process.env.NEXT_PUBLIC_API_URL}auth/signup`
 
   const axiosConfig = {
@@ -17,11 +17,11 @@ export async function register(registerProps: RegisterProps) {
       firstName: registerProps.firstName,
       lastName: registerProps.lastName,
       pseudo: registerProps.pseudo,
-      hash: registerProps.hash,
+      age:registerProps.age,
+      password: registerProps.password,
       email: registerProps.email,
-      roleId: registerProps.roleId,
       city: registerProps.city,
-      dollarAvailables: registerProps.dollarAvailables,
+      promoCode:registerProps.promoCode,
     }, axiosConfig)
     .then((res) => {
       return res

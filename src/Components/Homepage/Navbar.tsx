@@ -6,10 +6,11 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Rewards+', href: '#', current: true },
-  { name: 'Price', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Compagny', href: '#', current: false },
+  { name: 'Promo', href: '/PromoCode', current: true },
+  { name: 'Crypto', href: '/crypto', current: false },
+  { name: 'Offers', href: '/offer', current: false },
+  { name: 'Create Crypto', href: '/CryptoCreate', current: false },
+  { name: 'Crypto historic', href: '/cryptohistory', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -136,10 +137,10 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/user"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Sign out
+                           All Users
                           </a>
                         )}
                       </Menu.Item>
