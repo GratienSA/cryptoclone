@@ -12,14 +12,15 @@ export default function CryptoCreatePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (value <= 0 || quantity <= 0) {
-       
-        return;
-      }
 
-    const newCrypto: CryptoProps = {
+    if (value <= 0 || quantity <= 0) {
+      // Validation checks
+      return;
+    }
+
+    const newCryptoProps: CryptoProps = {
       created_at: new Date().toISOString(),
-      id: '', // L'ID sera généré côté serveur
+      id: '',
       image,
       name,
       quantity,
@@ -27,10 +28,17 @@ export default function CryptoCreatePage() {
       value,
     };
 
+    const newCrypto: Crypto = {
+      ...newCryptoProps,
+      subtle: crypto.subtle,
+      getRandomValues: crypto.getRandomValues.bind(crypto),
+      randomUUID: crypto.randomUUID.bind(crypto),
+    };
+
     try {
       const createdCrypto = await createCrypto(newCrypto);
       console.log('Crypto créée :', createdCrypto);
-      // Réinitialisez les champs du formulaire si nécessaire
+      // Reset form fields if necessary
     } catch (error) {
       console.error('Erreur lors de la création de la crypto :', error);
     }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -10,26 +10,27 @@ interface HistoryChartProps {
   Cryptoname: string;
 }
 
-const HistoryChart: React.FC<HistoryChartProps> = ({ cryptoId }) => {
+const HistoryChart: React.FC<HistoryChartProps> = ({ cryptoId, Cryptoname }) => {
   const [history, setHistory] = useState<HistoricProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  function convertApiResponseToChartData(response) {
-    
+
+  const convertApiResponseToChartData = (response: HistoricProps[]) => {
     const xAxisData = response.map(item => new Date(item.created_at).getTime());
     const seriesData = response.map(item => item.value);
 
     return {
-        xAxis: xAxisData,
-        series: seriesData
+      xAxis: xAxisData,
+      series: seriesData,
     };
-}
-const chartData = convertApiResponseToChartData(history);
+  };
+
+  const chartData = convertApiResponseToChartData(history);
 
   const fetchHistory = async () => {
     try {
-      getCryptoHistoryById(cryptoId).then((res)=> setHistory(res))
-     
+      const res = await getCryptoHistoryById(cryptoId);
+      setHistory(res);
     } catch (error) {
       setError('Error fetching history');
       console.error('Error fetching history:', error);
@@ -39,8 +40,6 @@ const chartData = convertApiResponseToChartData(history);
   };
 
   useEffect(() => {
-  
-
     fetchHistory();
   }, [cryptoId]);
 
@@ -52,20 +51,20 @@ const chartData = convertApiResponseToChartData(history);
     return <div>{error}</div>;
   }
 
-
-
   return (
-    
-    <LineChart
-    xAxis={[{ data: chartData.xAxis }]}
-    series={[
-      {
-        data: chartData.series,
-      },
-    ]}
-    width={1000}
-    height={600}
-  />
+    <div>
+      <h2>{Cryptoname} History</h2>
+      <LineChart
+        xAxis={[{ data: chartData.xAxis }]}
+        series={[
+          {
+            data: chartData.series,
+          },
+        ]}
+        width={1000}
+        height={600}
+      />
+    </div>
   );
 };
 

@@ -80,8 +80,6 @@ export async function buyCrypto(cryptoid:string, amount:number) {
 
 
 
-
-
 import{ AxiosRequestConfig } from 'axios';
 
 export async function getCryptoHistoryById(id: string) {
